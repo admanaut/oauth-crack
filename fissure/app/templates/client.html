@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Fissure</h1>
+    <h4>The OAuth 2.0 demo app</h4>
+    <p>What grant type would you like to try out?</p>
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAuthCode" aria-expanded="false" aria-controls="collapseAuthCode">
+        Authorisation code
+      </button>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseImplicit" aria-expanded="false" aria-controls="collapseImplicit">
+        Implicit
+      </button>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseResourceOwnerCredentials" aria-expanded="false" aria-controls="collapseResourceOwnerCredentials">
+        Resource Owner Credentials
+      </button>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseClientCredentials" aria-expanded="false" aria-controls="collapseClientCredentials">
+        Client Credentials
+      </button>
+    </p>
+    <div class="collapse" id="collapseAuthCode">
+      <div class="card">
+        <img src="{{ url_for('static', filename='auth-code-grant-flow.svg') }}" class="img-fluid" alt="Auth Code Grant flow"/>
+      </div>
+      <div class="accordion">
+        <div class="card">
+          <div class="card-header">
+            <h2>
+              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAuthCodeStep1" aria-expanded="true" aria-controls="collapseAuthCodeStep1">
+                Step 1: Getting a Grant Code (A) (B) (C)
+              </button>
+            </h2>
+          </div>
+          <div id="collapseAuthCodeStep1" class="collapse" aria-labelledby="headingOne" data-parent="#collapseAuthCode">
+            <div class="card-body">
+              <p>To get a Grant Code, The Client (the server serving this web page) will redirect (via the browser) to the Authorisation Server with the following parameters in the query string:</p>
+              <ul>
+                <li><strong>response_type=code</strong> value must be <i>code</i></li>
+                <li><strong>client_id={{ client_id }}</strong> <i>client_identifier</i> issued by the Authorisation Server</li>
+                <li><strong>redirect_uri={{ return_uri }}</strong> the authorization server redirects to this URI after completing its interaction with the owner. this URI is registered with the Authorization Server during the client registration process.</li>
+                <li><strong>scope=pictures</strong> limits access to the requested scopes, in our examples <i>pictures</i></li>
+                <li><strong>state={{ state }}</strong> an opaque value used by the client to maintain state between the request and callback. usually clients include a CSRF token to validate that the callback is for the request client initiated.</li>
+              </ul>
+              <a href="http://localhost:8080/authorize?response_type=code&client_id={{ client_id }}&state={{ state }}&scope=pictures&redirect_uri=http://localhost:8081{{ return_uri }}" class="card-link">Begin ></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>
+              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAuthCodeStep2" aria-expanded="true" aria-controls="collapseAuthCodeStep1">
+                Step 2: Getting an Access Token (D) (E)
+              </button>
+            </h2>
+          </div>
+
+          <div id="collapseAuthCodeStep2" class="collapse" aria-labelledby="headingOne" data-parent="#collapseAuthCode">
+            <div class="card-body">
+              To get an Access Token, The Client (the server serving this web page) will exchange the Grant Code received in Step 1 for an Access Token by making a POST request directly (server to server - no user agent) to the Authorisation Service and including the following parameters in the body:
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>
+              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAuthCodeStep3" aria-expanded="true" aria-controls="collapseAuthCodeStep3">
+                Step 3: Getting the Protected Resource (F) (G)
+              </button>
+            </h2>
+          </div>
+
+          <div id="collapseAuthCodeStep3" class="collapse" aria-labelledby="headingOne" data-parent="#collapseAuthCode">
+            <div class="card-body">
+              Hello 3
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPLICIT GRANT TYPE -->
+    <div class="collapse" id="collapseImplicit">
+      <div class="card card-body">
+        Implicit Grant Type
+      </div>
+    </div>
+
+    <!-- RESOURCE OWNER CREDENTIALS GRANT TYPE -->
+    <div class="collapse" id="collapseResourceOwnerCredentials">
+      <div class="card card-body">
+        Resource Owner Credentials
+      </div>
+    </div>
+
+    <!-- CLIENT CREDENTIALS GRANT TYPE -->
+    <div class="collapse" id="collapseClientCredentials">
+      <div class="card card-body">
+        Client Credentials
+      </div>
+    </div>
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+</html>
