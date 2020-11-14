@@ -85,23 +85,10 @@
 
           <div id="collapseAuthCodeStep3" class="collapse" aria-labelledby="headingOne" data-parent="#collapseAuthCode">
             <div class="card-body">
-              <p>
-                To get the Protected Resource, The Client (the server serving this web page) needs to get an Access Token by following Steps 1 and 2. Once the Client has an Access Token, it will request the Protected Resource from the Resource Server by including the Access Token in the <i>Authorization</i> HTTP header.
-              </p>
-              <img src="" class="img-fluid" alt="Protected Resource" id="protected-resource"/>
-              <script>
-                {% if auth %}
-                  let headers = {headers: {"Authorization": "Bearer "}}
-                {% else %}
-                  let headers = {}
-                {% endif %}
-
-                let req = fetch('http://localhost:8082/protected-resource', headers);
-                req.then(resp => resp.text())
-                .then(text => {
-                    document.getElementById("protected-resource").src = text
-                  })
-              </script>
+              To get the Protected Resource, The Client (the server serving this web page) needs to get an Access Token by following Steps 1 and 2. Once the Client has an Access Token, it will request the Protected Resource from the Resource Server by including the Access Token in the <i>Authorization</i> HTTP header, like this:
+              <br/>
+              <pre><code>Authorization: Bearer [TOKEN]</code></pre>
+              <img src="{{ url_for('static', filename='holygrail.jpg') }}" class="img-fluid" alt="Protected Resource"/>
             </div>
           </div>
         </div>

@@ -1,6 +1,5 @@
-from flask import Flask
-from flask import request
-from flask import render_template
+from flask import Flask, request, render_template
+import json
 
 app = Flask(__name__)
 
@@ -16,17 +15,37 @@ def authorize():
     scope = request.args.get("scope")
     state = request.args.get("state")
 
-    grantCode = generateGrantCode()
-
     return render_template( "authorize.html",
-        code=grantCode,
+        code=generateGrantCode(),
         client_name=clients[clientId],
         redirect_uri=redirectURI,
         state=state,
         scope=scope)
 
+@app.route('/token', methods=["POST"])
+def token():
+    grantType = request.args.get("grant_type")
+    code = request.args.get("code")
+    clientId = request.args.get("client_id")
+    clientSecret = request.args.get("client_secret")
+    redirectUri = request.args.get("redirect_uri")
+
+    data = {  'token_type': 'Bearer'
+            , 'expires_in': 3600
+            , 'access_token': generateAccessToken()
+            , 'refresh_token': generateAccessToken()
+            }
+
+    data = json.dumps(data)
+    body = str(data).encode('utf-8')
+
+    return body
+
 def generateGrantCode():
     return "uDwkpil@blte%&inTwRNewN6gKfCwMyo"
 
-def generateAuthCode():
-    return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjoiSldUIFJ1bGVzISIsImlhdCI6MTQ1OTQ0ODExOSwiZXhwIjoxNDU5NDU0NTE5fQ.-yIVBD5b73C75osbmwwshQNRC7frWUYrqaTjTpza2y4"
+def generateAccessToken():
+    return ""
+
+def generateRefreshToken():
+    return ""
